@@ -37,6 +37,35 @@ black = pygame.Color(0,0,0)
 #for click at the left corner
 gameClock = pygame.time.Clock()
 
+#to check the boundarie. here we are not limiting boundaries like it can pass through like it can pass through screen and come from other
+
+def checkCollision(posA,As,posB,Bs):
+    if(posA.x < posB.x+Bs and posA.x+As > posB.x and posA.y < posB.y+Bs and posA.y+As > posB.y):
+        return True
+    return False
+
+def checkLimits(snake):
+    if(snake.x > SCREEN_WIDTH):
+        snake.x =SNAKE_SIZE
+    if(snake.x <0):
+        snake.x = SCREEN_WIDTH - SNAKE_SIZE
+    if(snake.y > SCREEN_HEIGHT):
+        snake.y =SNAKE_SIZE
+    if(snake.y <0): #also same half half
+        snake.y = SCREEN_HEIGHT - SNAKE_SIZE
+
+#we will make class for food of  the snake let's name it as apple
+
+class Apple:
+    def __init__(self,x,y,state):
+        self.x = x
+        self.y = y
+        self.state = state
+        self.color = pygame.color.Color("orange")
+
+    def draw(self,screen:
+        pygame.draw.rect(screen,self.color,(self.x,self.y,APPLE_SIZE,APPLE_SIZE),0)
+
 def getKey(event):
     for event in pygame.event.get():
         if event.type == pygame.KEYDOWN:
@@ -64,9 +93,25 @@ def endGame():
     screen.blit(message,(320,240))
     screen.blit(message_play_again,(320+12,240+40))
 
-    def endGame():
-        message = game_over_font.render("GAME OVER",1,pygame.Color("black"))
-    message_play_again = play_again_font.render("Play Again ? (Y/N)",1,pygame.Color("green"))
-    screen.blit(message,(320,240))
-    screen.blit(message_play_again,(320+12,240+40))
+pygame.display.flip()
+pygame.display.update()
 
+mKey = getKey()
+while (mKey != "exit"):
+    if(mKey == "yes"):
+        main()
+    elif(mKey == "no"):
+        break
+    mKey = getKey()
+    gameClock.tick(FPS)
+sys.exit(0)
+
+def drawScore(score):
+    score_numb = score_numb_font.render(str(score),1,pygame.Color("red"))
+    screen.blit(score_msg,(SCREEN_WIDTH - score_msg_size[0]-60,10))
+    screen.blit(score_numb,(SCREEN_WIDTH -45,14))
+
+def drawGameTime(gameTime):
+    game_time = score_font.render("Time:" , 1, pygame.Color("white"))
+def main():
+    print("bvhfbvhfbf")
