@@ -4,6 +4,8 @@ import os
 import random
 import math
 
+import self
+
 pygame.init()
 pygame.display.set_caption('Snake')
 pygame.font.init()
@@ -65,6 +67,24 @@ class Apple:
 
     def draw(self,screen:
         pygame.draw.rect(screen,self.color,(self.x,self.y,APPLE_SIZE,APPLE_SIZE),0)
+
+class segment:
+        self.x = x
+        self.y = y
+        self.direction = KEY["UP"]
+        self.color = "white"
+
+class snake:
+    def __init__(self,x,y):
+        self.x = x
+        self.y = y
+        self.direction = KEY["UP"]
+        self.stack =[]
+        self.stack.append (self)
+        blackBox = segment(self.x, self.y + SEPARATION)
+        blackBox.direction = KEY["UP"]
+        blackBox.color = "NULL"
+        self.stack.append(blackBox)
 
 def getKey(event):
     for event in pygame.event.get():
