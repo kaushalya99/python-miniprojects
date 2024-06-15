@@ -11,7 +11,7 @@ pygame.display.set_caption('Snake')
 pygame.font.init()
 random.speed()
 
-speed = 0.30
+SPEED = 0.30
 SNAKE_SIZE = 9
 APPLE_SIZE = SNAKE_SIZE
 SEPARATION = 10
@@ -85,6 +85,24 @@ class snake:
         blackBox.direction = KEY["UP"]
         blackBox.color = "NULL"
         self.stack.append(blackBox)
+
+        #we will define moves of the snake
+    def move(self):
+        last_element = len(self.stack)-1
+        while(last_element != 0):
+            self.stack[last_element].direction = self.stack[last_element].direction
+            self.stack[last_element].x = self.stack[last_element-1].x
+            self.stack[last_element].y = self.stack[last_element-1].y
+            last_element = last_element - 1
+        if(len(self,stack) < 2):
+            last_segment =  self
+        else:
+            last_segment = self.stack.pop(last_element)
+        last_segment.direction = self.stack[0].direction
+        if(self.stack[0].direction == KEY["UP"]):
+            last_segment.y = self.stack[0].y - (SPEED * FPS)
+        elif(self.stack[0].direction == KEY["DOWN"]):
+            last_segment.y = self.stack[0].y + (SPEED * FPS)
 
 def getKey(event):
     for event in pygame.event.get():
