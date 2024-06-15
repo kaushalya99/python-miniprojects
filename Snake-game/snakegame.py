@@ -102,7 +102,7 @@ class snake:
         if(self.stack[0].direction == KEY["UP"]):
             last_segment.y = self.stack[0].y - (SPEED * FPS)
         elif(self.stack[0].direction == KEY["DOWN"]):
-            last_segment.y = self.stack[0].y + (SPEED * FPS)
+            last_segment.y = self.stack[0].y - (SPEED * FPS)
 
 def getKey(event):
     for event in pygame.event.get():
