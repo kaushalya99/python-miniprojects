@@ -1,3 +1,4 @@
+from datetime import time
 from inspect import stack
 
 import pygame
@@ -11,7 +12,7 @@ import self
 pygame.init()
 pygame.display.set_caption('Snake')
 pygame.font.init()
-random.speed()
+random.seed()
 
 SPEED = 0.30
 SNAKE_SIZE = 9
@@ -71,6 +72,7 @@ class Apple:
         pygame.draw.rect(screen,self.color,(self.x,self.y,APPLE_SIZE,APPLE_SIZE),0)
 
 class segment:
+    def __init__(self,x,y):
         self.x = x
         self.y = y
         self.direction = KEY["UP"]
@@ -235,15 +237,45 @@ def drawGameTime(gameTime):
 
 def exitScreen():
     pass
+
+def respawnApple(apples, index, sx, sy):
+    radius = math.sqrt((SCREEN_WIDTH/2*SCREEN_WIDTH/2 + SCREEN_HEIGHT/2*SCREEN_HEIGHT/2))/2
+    angle = 999
+    while(angle > radius):
+        angle = random.uniform(0,800)*math.pi*2
+        x = SCREEN_WIDTH/2 + radius * math.cos(angle)
+        y = SCREEN_HEIGHT/2 + radius * math.sin(angle)
+        if(x == sx and y == sy):
+            continue
+    newApple = Apple(x, y,1)
+    apples[index] = newApple
+
+def respawnApples(apples, quantity, sx, sy):
+    counter = 0
+    del apples[:]
+    radius = math.sqrt((SCREEN_WIDTH/2*SCREEN_WIDTH/2 + SCREEN_HEIGHT/2*SCREEN_HEIGHT/2))/2
+    angle = 999
+    while(counter < quantity):
+        while(angle > radius):
+           angle = random.uniform(0,800)*math.pi*2
+           x = SCREEN_WIDTH/2 + radius * math.cos(angle)
+           y = SCREEN_HEIGHT/2 + radius * math.sin(angle)
+            if((x-APPLE_SIZE == sx or x+APPLE_SIZE == sx) and (y-APPLE_SIZE == sy or y+APPLE_SIZE == sy)
+                   or radius - angle <= 10):
+                   continue
+        apples.append(Apple(x, y,1))
+        angle = 999
+        counter += 1
+
 def main():
     score = 0
 
 
-    mySnake = Snake(SCREEN_WIDTH/2,SCREEN_HEIGHT/2)
-    mySnake.setDirection["Up"]
+    mySnake = snake(SCREEN_WIDTH/2,SCREEN_HEIGHT/2)
+    mySnake.setDirection(["Up"])
     mySnake.move()
     start_segments = 3
-    while(start_segments >0):
+    while(start_segments > 0):
         mySnake.grow()
         mySnake.move()
         start_segments -=1
@@ -252,4 +284,50 @@ def main():
     max_apples = 1
     eaten_apple = False
     apples = [Apple(random.randint(60,SCREEN_WIDTH),random.randint(60,SCREEN_HEIGHT),1)]
-    respawnApples(apples,mad_apples, mySnake.x, mySnake.y)
+    respawnApples(apples,max_apples, mySnake.x, mySnake.y)
+
+
+    startTime = pygame.time.get_ticks()
+    endgame = 0
+
+    while(endgame != 1):
+        gameClock.tick(FPS)
+
+        keyPress = getKey()
+        if keyPress == "exit":
+            endgame = 1
+
+        checklimits(mySnake)
+        if(mySnake.checkCrash() == True):
+            endGame()
+
+        for myApple in apples:
+            if(myApples.state == 1):
+                if(checkCollision(mySnake.getHead(),SNAKE_SIZE,myApple,APPLE_SIZE) == True):
+                    mySnake.grow()
+                    myApples.state = 0
+                    score += 10
+                    eaten_apple = True
+
+                if(keyPress):
+                    mySnake.setDirection(keyPress)
+                mySnake.move()
+
+                if(eaten_apple == True):
+                    eaten_apple = False
+                    respawnApple(apples, 0, mySnake.getHead().x, mySnake.getHead().y)
+
+                screen.fill(background_color)
+                for myApple in apples:
+                    if(myApple.state == 1):
+                        myApple.draw(screen)
+
+                mySnake.draw(screen)
+                drawScore(score)
+                gameTime = pygame.time.get_ticks()- startTime
+                drawGameTime(gameTime)
+
+                pygame.display.flip()
+                pygame.display.update()
+
+main()
