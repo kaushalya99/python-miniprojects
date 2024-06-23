@@ -284,4 +284,7 @@ def main():
         pygame.display.flip()
         pygame.display.update()
 
+        # pygame.display.flip()
+        # pygame.display.update()
+
 main()
