@@ -2,6 +2,8 @@ import time
 import sys
 import pygame
 
+#
+
 CLEAR = "\033[2J"
 CLEAR_AND_RETURN = "\033[H"
 
@@ -31,10 +33,10 @@ seconds = int(input("How many seconds to wait: "))
 total_seconds = minutes * 60 + seconds
 alarm(total_seconds)
 
-minutes = int(input("How many minutes to wait: "))
-seconds = int(input("How many seconds to wait: "))
-total_seconds = minutes * 60 + seconds
-alarm(total_seconds)
+# minutes = int(input("How many minutes to wait: "))
+# seconds = int(input("How many seconds to wait: "))
+# total_seconds = minutes * 60 + seconds
+# alarm(total_seconds)
 
 
 
