@@ -27,9 +27,11 @@ def getWeather():
     clock.config(text=current_time)
     name.config(text="CURRENT WEATHER")
 
+
     #Weather
 
-    api = "https://https://api.openweathermap.org/data/2.5/weather?lat=" + city + "&appid=714f551ada65bfea5934650858e91fcc"
+
+    api = "https://api.openweathermap.org/data/2.5/weather?lat=" + city + "&appid=714f551ada65bfea5934650858e91fcc"
 
     json_data = requests.get(api).json()
     condition = json_data['weather'][0]['main']
@@ -39,8 +41,8 @@ def getWeather():
     humidity = json_data['main']['humidity']
     wind = json_data['wind']['speed']
 
-    t.config(text = (temp))
-    c.config(text = (condition, "|", "FEELS", "LIKE", temp))
+    t.config(text=(temp))
+    c.config(text=(condition, "|", "FEELS", "LIKE", temp))
 
     w.config(text=wind)
     h.config(text=humidity)
@@ -50,11 +52,12 @@ def getWeather():
 
 #search box
 
-Search_image = PhotoImage(file="search.png")
+Search_image = PhotoImage(file="C:/Users/HP/PycharmProjects/python-mini projects/WeatherApp/search.png")
+
 myimage = Label(image=Search_image)
 myimage.place(x=20, y=20)
 
-textfield = tk.Entry(root, justify="center", width=17, font=("poppins", 25, "bold"), bg="404040", border=0, fg="white")
+textfield = tk.Entry(root, justify="center", width=17, font=("poppins", 25, "bold"), bg="#404040", border=0, fg="white")
 textfield.place(x=50, y=40)
 textfield.focus()
 
