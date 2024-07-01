@@ -43,7 +43,6 @@ def getWeather():
     humidity = json_data['main']['humidity']
     wind = json_data['wind']['speed']
 
-
     t.config(text=f"{temp:.1f}°C")
     c.config(text=f"{condition} | FEELS LIKE {temp:.1f}°C")
 
