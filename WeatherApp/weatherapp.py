@@ -16,20 +16,22 @@ root.resizable(False, False)
 def getWeather():
     city = textfield.get()
 
-    geolocator = Nominatim(user_agent="geoapiExercises")
-    location = geolocator.geocode(city)
-    obj = TimezoneFinder()
-    result = obj.timezone_at(lng=location.longitude, lat=location.latitude)
+    try:
+        geolocator = Nominatim(user_agent="geoapiExercises")
+        location = geolocator.geocode(city)
+        if location is None:
+            messagebox.showerror("Error", "City not found")
+            return
 
-    home = pytz.timezone(result)
-    local_time = datetime.now(home)
-    current_time = local_time.strftime("%I:%M %p")
-    clock.config(text=current_time)
-    name.config(text="CURRENT WEATHER")
+        obj = TimezoneFinder()
+        result = obj.timezone_at(lng=location.longitude, lat=location.latitude)
 
-
+        home = pytz.timezone(result)
+        local_time = datetime.now(home)
+        current_time = local_time.strftime("%I:%M %p")
+        clock.config(text=current_time)
+        name.config(text="CURRENT WEATHER")
     #Weather
-
 
     api = "https://api.openweathermap.org/data/2.5/weather?lat=" + city + "&appid=714f551ada65bfea5934650858e91fcc"
 
@@ -41,19 +43,22 @@ def getWeather():
     humidity = json_data['main']['humidity']
     wind = json_data['wind']['speed']
 
-    t.config(text=(temp))
-    c.config(text=(condition, "|", "FEELS", "LIKE", temp))
 
-    w.config(text=wind)
-    h.config(text=humidity)
-    d.config(text=description)
-    p.config(text=pressure)
+    t.config(text=f"{temp:.1f}°C")
+    c.config(text=f"{condition} | FEELS LIKE {temp:.1f}°C")
+
+    w.config(text=f"{wind} m/s")
+    h.config(text=f"{humidity}%")
+    d.config(text=description.capitalize())
+    p.config(text=f"{pressure} hPa")
+
+  except Exception as e:
+    messagebox.showerror("Error", str(e))
 
 
 #search box
 
 Search_image = PhotoImage(file="C:/Users/HP/PycharmProjects/python-mini projects/WeatherApp/search.png")
-
 myimage = Label(image=Search_image)
 myimage.place(x=20, y=20)
 
@@ -61,19 +66,19 @@ textfield = tk.Entry(root, justify="center", width=17, font=("poppins", 25, "bol
 textfield.place(x=50, y=40)
 textfield.focus()
 
-Search_icon = PhotoImage(file="search_icon.png")
+Search_icon = PhotoImage(file="C:/Users/HP/PycharmProjects/python-mini projects/WeatherApp/search_icon.png")
 myimage_icon = Button(image=Search_icon, borderwidth=0, cursor="hand2", bg="#404040", command=getWeather)
 myimage_icon.place(x=400, y=34)
 
 #Logo
 
-Logo_image = PhotoImage(file="logo.png")
+Logo_image = PhotoImage(file="C:/Users/HP/PycharmProjects/python-mini projects/WeatherApp/logo.png")
 logo = Label(image=Logo_image)
 logo.place(x=150, y=100)
 
 #Bottom box
 
-Frame_image = PhotoImage(file="box.png")
+Frame_image = PhotoImage(file="C:/Users/HP/PycharmProjects/python-mini projects/WeatherApp/box.png")
 frame_myimage = Label(image=Frame_image)
 frame_myimage.pack(padx=5, pady=5, side=BOTTOM)
 
