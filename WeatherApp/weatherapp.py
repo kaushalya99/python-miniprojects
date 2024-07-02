@@ -13,46 +13,46 @@ root.geometry("900x500+300+200")
 root.resizable(False, False)
 
 
-def getWeather():
-    city = textfield.get()
-
-    try:
-        geolocator = Nominatim(user_agent="geoapiExercises")
-        location = geolocator.geocode(city)
-        if location is None:
-            messagebox.showerror("Error", "City not found")
-            return
-
-        obj = TimezoneFinder()
-        result = obj.timezone_at(lng=location.longitude, lat=location.latitude)
-
-        home = pytz.timezone(result)
-        local_time = datetime.now(home)
-        current_time = local_time.strftime("%I:%M %p")
-        clock.config(text=current_time)
-        name.config(text="CURRENT WEATHER")
-    #Weather
-
-    api = "https://api.openweathermap.org/data/2.5/weather?lat=" + city + "&appid=714f551ada65bfea5934650858e91fcc"
-
-    json_data = requests.get(api).json()
-    condition = json_data['weather'][0]['main']
-    description = json_data['weather'][0]['description']
-    temp = json_data['main']['temp'] - 273.15
-    pressure = json_data['main']['pressure']
-    humidity = json_data['main']['humidity']
-    wind = json_data['wind']['speed']
-
-    t.config(text=f"{temp:.1f}°C")
-    c.config(text=f"{condition} | FEELS LIKE {temp:.1f}°C")
-
-    w.config(text=f"{wind} m/s")
-    h.config(text=f"{humidity}%")
-    d.config(text=description.capitalize())
-    p.config(text=f"{pressure} hPa")
-
-  except Exception as e:
-    messagebox.showerror("Error", str(e))
+# def getWeather():
+#     city = textfield.get()
+#     #
+#     # try:
+#     #     geolocator = Nominatim(user_agent="geoapiExercises")
+#     #     location = geolocator.geocode(city)
+#     #     if location is None:
+#     #         messagebox.showerror("Error", "City not found")
+#     #         return
+#     #
+#     #     obj = TimezoneFinder()
+#     #     result = obj.timezone_at(lng=location.longitude, lat=location.latitude)
+#     #
+#     #     home = pytz.timezone(result)
+#     #     local_time = datetime.now(home)
+#     #     current_time = local_time.strftime("%I:%M %p")
+#     #     clock.config(text=current_time)
+#     #     name.config(text="CURRENT WEATHER")
+#     #Weather
+#
+#     api = "https://api.openweathermap.org/data/2.5/weather?lat=" + city + "&appid=714f551ada65bfea5934650858e91fcc"
+#
+#     json_data = requests.get(api).json()
+#     condition = json_data['weather'][0]['main']
+#     description = json_data['weather'][0]['description']
+#     temp = json_data['main']['temp'] - 273.15
+#     pressure = json_data['main']['pressure']
+#     humidity = json_data['main']['humidity']
+#     wind = json_data['wind']['speed']
+#
+#     t.config(text=f"{temp:.1f}°C")
+#     c.config(text=f"{condition} | FEELS LIKE {temp:.1f}°C")
+#
+#     w.config(text=f"{wind} m/s")
+#     h.config(text=f"{humidity}%")
+#     d.config(text=description.capitalize())
+#     p.config(text=f"{pressure} hPa")
+#
+#   except Exception as e:
+#     messagebox.showerror("Error", str(e))
 
 
 #search box
