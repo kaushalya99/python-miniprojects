@@ -15,8 +15,7 @@ def dodge(front,back):
     #if image is greater than 255 which i don't think is possible but still if it is there will convert it to 255
     final_sketch[final_sketch>255]=255
     final_sketch[back==255]=255
-    #to convert any suitable existing column to categorical type we will use aspect function
-    #and uint8 is for 8-bit signed integer
+    #to convert any suitable existing col
     return final_sketch.astype('uint8')
 
 
