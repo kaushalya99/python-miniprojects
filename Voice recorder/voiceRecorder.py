@@ -12,20 +12,21 @@ root.title("Voice Recorder")
 root.configure(background="#4a4a4a")
 
 def Record():
+    global temp
     freq = 44100
     dur = int(duration.get())
     recording = sound.rec(dur*freq,samplerate=freq,channels=2)
 
 
-    #timer
+#timer
 
 
     try:
-        temp=int(duration.get())
+        temp = int(duration.get())
     except:
         print("Please enter the write value")
 
-    while temp>0:
+    while temp > 0:
         root.update()
         time.sleep(1)
         temp-=1
