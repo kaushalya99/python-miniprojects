@@ -23,3 +23,37 @@ def tperror(prompt):
                 errors = errors + 1
 
     return errors
+
+
+# calculate the speed of typing words per minutes
+
+def speed(inprompt, stime, etime):
+    global time
+    global inwords
+
+    inwords = inprompt.split()
+    twords = len(inwords)
+    speed = twords / time
+
+    return speed
+
+# calculate total elapsed time
+
+def elapsedtime(stime,etime):
+    time = etime - stime      # etime is the end time and stime is the start time
+    return time
+
+
+if __name__ == '__main__':
+    prompt = "Python is an interpreted high-level general purpose programming language."
+   # this was the paragraph which you have to type to check your speed
+   print("Type this:-  ', prompt,'")
+
+   input("Press Enter when you are ready to check your speed!!!")
+
+   #recording time for input
+   stime = time()
+   inprompt = input()
+   etime = time()
+
+
