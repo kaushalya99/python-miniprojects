@@ -57,3 +57,12 @@ if __name__ == '__main__':
    etime = time()
 
 
+#collect all the informations returned by the functions
+
+time = round(elapsedtime(stime,etime),2)
+speed = speed(inprompt,stime,etime)
+errors = tperror(prompt)
+
+#printing all tge data to see the result
+
+print("Total")
