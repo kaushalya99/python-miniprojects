@@ -15,4 +15,10 @@ root.iconphoto(False,image_icon)
 
 langiage=googletrans.LANGUAGES
 languageV=list(language.values())
+langl=language.keys()
+
+combol=ttk.Combobox(root,values=languageV,font="Roboto 14",state="r")
+combol.place(x=110,y=20)
+combol.set("ENGLISH")
+
 
